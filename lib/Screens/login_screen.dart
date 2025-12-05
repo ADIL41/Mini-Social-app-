@@ -39,7 +39,12 @@ class _LoginScreenState extends State<LoginScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 100),
+                SizedBox(
+                  width: double.infinity,
+                  height: 250,
+                  child: Image.asset('assets/logo.png'),
+                ),
+                SizedBox(height: 50),
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(
@@ -64,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                     labelStyle: TextStyle(
+                    labelStyle: TextStyle(
                       color: Color.fromARGB(255, 194, 54, 108),
                     ),
                     hintText: 'enter your password',

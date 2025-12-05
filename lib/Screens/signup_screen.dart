@@ -35,7 +35,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 150),
+                SizedBox(
+                  width: double.infinity,
+                  height: 250,
+                  child: Image.asset('assets/logo.png'),
+                ),
+                SizedBox(height: 50),
                 TextFormField(
                   controller: nameController,
                   decoration: InputDecoration(

@@ -18,6 +18,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 10),
                 TextFormField(
                   controller: passwordController,
+                  obscureText: _obscurePassword,
                   decoration: InputDecoration(
                     labelText: 'password',
                     labelStyle: TextStyle(
@@ -109,6 +111,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     hintText: 'Enter your password ',
                     prefixIcon: Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(
@@ -149,7 +163,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -171,11 +185,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         );
                       },
                       child: Container(
-                        height: 30,
-                        width: 70,
+                        height: 35,
+                        width: 90,
                         decoration: BoxDecoration(
                           color: Colors.green,
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(16),
                         ),
                         child: Center(
                           child: Text(

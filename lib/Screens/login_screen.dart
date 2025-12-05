@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 250,
                   child: Image.asset('assets/logo.png'),
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 30),
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(
@@ -111,8 +111,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Dont have an account',
-                        style: TextStyle(fontSize: 15),
+                        'Dont have an account?',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     SizedBox(width: 10),
@@ -125,11 +128,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       },
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                      child: Container(
+                        height: 30,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),

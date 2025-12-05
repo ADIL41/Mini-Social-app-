@@ -40,7 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 250,
                   child: Image.asset('assets/logo.png'),
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 30),
                 TextFormField(
                   controller: nameController,
                   decoration: InputDecoration(
@@ -118,7 +118,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 25),
+                SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
                     try {
@@ -153,7 +153,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Already an account', style: TextStyle(fontSize: 15)),
+                    Text(
+                      'Already an account',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     SizedBox(width: 10),
                     GestureDetector(
                       onTap: () {
@@ -164,11 +170,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         );
                       },
-                      child: Text(
-                        'LogIn',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                      child: Container(
+                        height: 30,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'LogIn',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),

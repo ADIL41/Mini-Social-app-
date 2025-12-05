@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color.fromARGB(255, 194, 54, 108),
         title: Text('LogIn', style: TextStyle(color: Colors.white)),
         centerTitle: true,
       ),
@@ -44,10 +44,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
+                    labelStyle: TextStyle(
+                      color: Color.fromARGB(255, 194, 54, 108),
+                    ),
                     hintText: 'enter your email',
                     prefixIcon: Icon(Icons.email),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(255, 194, 54, 108),
+                        style: BorderStyle.solid,
+                      ),
                     ),
                   ),
                 ),
@@ -57,10 +64,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Password',
+                     labelStyle: TextStyle(
+                      color: Color.fromARGB(255, 194, 54, 108),
+                    ),
                     hintText: 'enter your password',
                     prefixIcon: Icon(Icons.lock),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(255, 194, 54, 108),
+                        style: BorderStyle.solid,
+                      ),
                     ),
                   ),
                 ),
@@ -91,7 +105,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('Dont have an account'),
+                      child: Text(
+                        'Dont have an account',
+                        style: TextStyle(fontSize: 15),
+                      ),
                     ),
                     SizedBox(width: 10),
                     InkWell(
@@ -103,7 +120,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       },
-                      child: Text('Sign Up'),
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ],
                 ),

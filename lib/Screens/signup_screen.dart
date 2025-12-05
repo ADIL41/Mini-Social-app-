@@ -23,7 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color.fromARGB(255, 194, 54, 108),
         title: Text('Sign Up', style: TextStyle(color: Colors.white)),
         centerTitle: true,
       ),
@@ -40,34 +40,57 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: nameController,
                   decoration: InputDecoration(
                     labelText: 'Name',
+                    labelStyle: TextStyle(
+                      color: Color.fromARGB(255, 194, 54, 108),
+                    ),
                     hintText: 'Enter your name ',
                     prefixIcon: Icon(Icons.person),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(255, 194, 54, 108),
+                        style: BorderStyle.solid,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: phoneNumberController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: 'Phone',
+                    labelStyle: TextStyle(
+                      color: Color.fromARGB(255, 194, 54, 108),
+                    ),
                     hintText: 'Enter your phone number ',
                     prefixIcon: Icon(Icons.phone),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(255, 194, 54, 108),
+                        style: BorderStyle.solid,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(height: 10),
                 TextFormField(
                   controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: 'Email',
+                    labelStyle: TextStyle(
+                      color: Color.fromARGB(255, 194, 54, 108),
+                    ),
                     hintText: 'Enter your email ',
                     prefixIcon: Icon(Icons.email),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(255, 194, 54, 108),
+                        style: BorderStyle.solid,
+                      ),
                     ),
                   ),
                 ),
@@ -76,10 +99,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: passwordController,
                   decoration: InputDecoration(
                     labelText: 'password',
+                    labelStyle: TextStyle(
+                      color: Color.fromARGB(255, 194, 54, 108),
+                    ),
                     hintText: 'Enter your password ',
                     prefixIcon: Icon(Icons.lock),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(255, 194, 54, 108),
+                        style: BorderStyle.solid,
+                      ),
                     ),
                   ),
                 ),
@@ -109,13 +139,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       print("Error: $e");
                     }
                   },
-                  child: Text('Sign Up'),
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Already an account'),
+                    Text('Already an account', style: TextStyle(fontSize: 15)),
                     SizedBox(width: 10),
                     GestureDetector(
                       onTap: () {
@@ -126,7 +159,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         );
                       },
-                      child: Text('LogIn'),
+                      child: Text(
+                        'LogIn',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ],
                 ),

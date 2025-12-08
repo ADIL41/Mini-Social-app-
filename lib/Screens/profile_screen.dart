@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,77 +16,120 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   XFile? image;
 
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+
+  Future<void> pickImage() async {
+    final picture = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (picture != null) {
+      setState(() {
+        image = picture;
+      });
+    }
+  }
+
+  Future<void> uploadImage() async {
+    if (image == null) return;
+
+    final bytes = await image!.readAsBytes();
+    final base64String = base64Encode(bytes);
+
+    await FirebaseFirestore.instance.collection('users').doc(userId).set({
+      'profileImageBase64': base64String,
+      'updatedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 194, 54, 108),
-        title: Text('User Profile'),
+        backgroundColor: const Color.fromARGB(255, 194, 54, 108),
+        title: const Text('User Profile'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 40),
-          Align(
-            alignment: Alignment.center,
-            child: image == null
-                ? CircleAvatar(
-                    radius: 100,
-                    child: InkWell(
-                      onTap: () async {
-                        final picture = await ImagePicker().pickImage(
-                          source: ImageSource.gallery,
-                        );
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-                        image = picture;
-                        setState(() {});
-                      },
-                      child: Icon(Icons.camera_alt_rounded, size: 50),
-                    ),
-                  )
-                : ClipOval(
-                    child: Image.file(
-                      File(image!.path),
-                      height: 200,
-                      width: 200,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-          ),
-          SizedBox(height: 20),
+          if (!snapshot.data!.exists) {
+            return const Center(child: Text('No profile data found'));
+          }
 
-          SizedBox(height: 50),
-          ElevatedButton(
-            onPressed: () async {
-              if (image == null) {
-                return;
-              }
-              final currentUser = FirebaseAuth.instance.currentUser;
-              if (currentUser == null) {
-                // ignore: avoid_print
-                print('no user loged in');
-                return;
-              }
-              final userId = currentUser.uid;
+          final userData = snapshot.data!.data() as Map<String, dynamic>;
 
-              // Convert image to bytes then to base64 string
-              final bytes = await image!.readAsBytes();
-              final base64String = base64Encode(bytes);
+          Uint8List? imageBytes;
+          if (userData['profileImageBase64'] != null) {
+            imageBytes = base64Decode(userData['profileImageBase64']);
+          }
 
-              // Save to Firestore - use your user document ID
-              final userRef = FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(userId); // Replace with your user ID
+          return Column(
+            children: [
+              const SizedBox(height: 30),
 
-              await userRef.set({
-                'profileImageBase64':
-                    base64String, // Store image as base64 string
-                'updatedAt': FieldValue.serverTimestamp(),
-              }, SetOptions(merge: true));
-            },
-            child: Text('Upload image'),
-          ),
-        ],
+              /// ✅ Profile Image
+              Align(
+                alignment: Alignment.center,
+                child: imageBytes == null
+                    ? CircleAvatar(
+                        radius: 90,
+                        child: InkWell(
+                          onTap: pickImage,
+                          child: const Icon(Icons.camera_alt_rounded, size: 40),
+                        ),
+                      )
+                    : ClipOval(
+                        child: Image.memory(
+                          imageBytes,
+                          height: 180,
+                          width: 180,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+              ),
+
+              const SizedBox(height: 20),
+
+              /// ✅ Name
+              Text(
+                userData['name'] ?? 'No Name',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 6),
+
+              /// ✅ Email
+              Text(
+                userData['email'] ?? 'No Email',
+                style: const TextStyle(fontSize: 16),
+              ),
+
+              const SizedBox(height: 6),
+
+              /// ✅ Phone
+              Text(
+                userData['phone'] ?? 'No Phone',
+                style: const TextStyle(fontSize: 16),
+              ),
+
+              const SizedBox(height: 30),
+
+              /// ✅ Upload Button
+              ElevatedButton(
+                onPressed: uploadImage,
+                child: const Text('Upload Image'),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

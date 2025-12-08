@@ -136,19 +136,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     try {
-                      await FirebaseAuth.instance
+                      final userCredential = await FirebaseAuth.instance
                           .createUserWithEmailAndPassword(
                             email: emailController.text.trim(),
                             password: passwordController.text.trim(),
                           );
+
+                      final userId = userCredential.user!.uid;
                       await FirebaseFirestore.instance
-                          .collection('User')
-                          .doc()
+                          .collection('users')
+                          .doc(userId)
                           .set({
+                            'uid': userId,
                             'name': nameController.text.trim(),
                             'phone': phoneNumberController.text.trim(),
                             'email': emailController.text.trim(),
-                            'password': passwordController.text.trim(),
+                            'createdAt': FieldValue.serverTimestamp(),
                           });
                       Navigator.pushReplacement(
                         context,

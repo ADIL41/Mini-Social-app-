@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_social_app/Screens/login_screen.dart';
+import 'package:mini_social_app/Screens/new_post_screen.dart';
 import 'package:mini_social_app/firebase_options.dart';
 
 void main() async {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           seedColor: const Color.fromARGB(255, 194, 54, 108),
         ),
       ),
-      home: const LoginScreen(),
+      home: const NewPostScreen(),
     );
   }
 }

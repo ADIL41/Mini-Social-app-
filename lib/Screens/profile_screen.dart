@@ -95,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               const SizedBox(height: 20),
 
-              /// ✅ Name
+              //Name
               Text(
                 userData['name'] ?? 'No Name',
                 style: const TextStyle(
@@ -106,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               const SizedBox(height: 6),
 
-              /// ✅ Email
+              // Email
               Text(
                 userData['email'] ?? 'No Email',
                 style: const TextStyle(fontSize: 16),
@@ -114,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               const SizedBox(height: 6),
 
-              /// ✅ Phone
+              ///  Phone
               Text(
                 userData['phone'] ?? 'No Phone',
                 style: const TextStyle(fontSize: 16),
@@ -122,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               const SizedBox(height: 30),
 
-              /// ✅ Upload Button
+              /// Upload Button
               ElevatedButton(
                 onPressed: uploadImage,
                 child: const Text('Upload Image'),
